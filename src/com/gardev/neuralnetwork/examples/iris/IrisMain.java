@@ -1,4 +1,4 @@
-package com.gardev.examples.iris;
+package com.gardev.neuralnetwork.examples.iris;
 
 import java.util.ArrayList;
 import java.util.Collections;

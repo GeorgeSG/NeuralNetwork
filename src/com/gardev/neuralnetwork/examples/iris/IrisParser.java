@@ -1,4 +1,4 @@
-package com.gardev.examples.iris;
+package com.gardev.neuralnetwork.examples.iris;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

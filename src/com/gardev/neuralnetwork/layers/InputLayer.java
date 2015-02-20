@@ -1,6 +1,6 @@
 package com.gardev.neuralnetwork.layers;
 
-public class InputLayer extends NeuralLayer {
+public class InputLayer extends AbstractNeuralLayer {
 
     public InputLayer(int neuronsCount) {
         super(neuronsCount);

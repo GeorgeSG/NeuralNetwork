@@ -3,12 +3,12 @@ package com.gardev.neuralnetwork;
 import java.util.ArrayList;
 
 import com.gardev.neuralnetwork.layers.InputLayer;
-import com.gardev.neuralnetwork.layers.NeuralLayer;
+import com.gardev.neuralnetwork.layers.HiddenLayer;
 import com.gardev.neuralnetwork.layers.OutputLayer;
 
 public class NeuralNetwork {
     private InputLayer input;
-    private ArrayList<NeuralLayer> hidden = new ArrayList<NeuralLayer>();
+    private ArrayList<HiddenLayer> hidden = new ArrayList<HiddenLayer>();
     private OutputLayer output;
 
     public NeuralNetwork(int... layerSize) {
@@ -21,7 +21,7 @@ public class NeuralNetwork {
 
         // Initialize and connect hidden layers
         for (int i = 1; i < layerSize.length - 1; i++) {
-            NeuralLayer hiddenLayer = new NeuralLayer(layerSize[i]);
+            HiddenLayer hiddenLayer = new HiddenLayer(layerSize[i]);
 
             if (i == 1) {
                 input.connectWith(hiddenLayer);
@@ -50,7 +50,7 @@ public class NeuralNetwork {
     private void activate(double... inputs) {
         input.setInput(inputs);
 
-        for (NeuralLayer hiddenLayer : hidden) {
+        for (HiddenLayer hiddenLayer : hidden) {
             hiddenLayer.propagate();
         }
 

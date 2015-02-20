@@ -8,19 +8,19 @@ import java.util.Random;
 import com.gardev.neuralnetwork.Connection;
 import com.gardev.neuralnetwork.Neuron;
 
-public class NeuralLayer {
+public abstract class AbstractNeuralLayer {
     protected ArrayList<Neuron> neurons = new ArrayList<Neuron>();
-    protected NeuralLayer nextLayer = null;
+    protected AbstractNeuralLayer nextLayer = null;
     
     protected Random random = new Random();
 
-    public NeuralLayer(int neuronsCount) {
+    public AbstractNeuralLayer(int neuronsCount) {
         for (int i = 0; i < neuronsCount; i++) {
             neurons.add(new Neuron());
         }
     }
 
-    public void connectWith(NeuralLayer nextLayer) {
+    public void connectWith(AbstractNeuralLayer nextLayer) {
         this.nextLayer = nextLayer;
 
         for (Neuron neuron : neurons) {
@@ -89,4 +89,5 @@ public class NeuralLayer {
     private double sigmoid(double sum) {
         return 1.0 / (1.0 + Math.pow(Math.E, -sum));
     }
+
 }

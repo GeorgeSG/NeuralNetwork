@@ -2,7 +2,7 @@ package com.gardev.neuralnetwork.layers;
 
 import com.gardev.neuralnetwork.Neuron;
 
-public class OutputLayer extends NeuralLayer {
+public class OutputLayer extends AbstractNeuralLayer {
 
     public OutputLayer(int neuronsCount) {
         super(neuronsCount);

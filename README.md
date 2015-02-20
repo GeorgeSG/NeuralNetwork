@@ -5,3 +5,4 @@ Example usage provided with the [Iris dataset](http://en.wikipedia.org/wiki/Iris
 ### To Do
 - Review access modifiers, as they were done in a hurry.
 - Add Javadoc for public interfaces.
+- Add an abstract class for a Layer. Refactor `NeuralLayer` as `HiddenLayer`

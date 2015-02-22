@@ -85,27 +85,27 @@ public abstract class AbstractNeuralLayer {
         }
     }
 
-    public void serialize(ObjectOutputStream out ) {
+    public void serialize(ObjectOutputStream out) {
         try {
-            for(int i = 0; i < neurons.size(); i++) {
-                for(int j = 0; j < neurons.get(i).getInputs().size(); j++) {
-                    out.writeDouble(neurons.get(i).getInputs().get(j).getWeight());
+            for(Neuron neuron : neurons) {
+                for(Connection connection : neuron.getInputs()) {
+                    out.writeDouble(connection.getWeight());
                 }
             }
-        } catch (Exception E) {
-            System.out.println(E);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     public void deserialize(ObjectInputStream in) {
         try {
-            for(int i = 0; i < neurons.size(); i++) {
-                for(int j = 0; j < neurons.get(i).getInputs().size(); j++) {
-                    neurons.get(i).getInputs().get(j).setWeight(in.readDouble());
+            for(Neuron neuron : neurons) {
+                for(Connection connection : neuron.getInputs()) {
+                    connection.setWeight(in.readDouble());
                 }
             }
-        } catch (Exception E) {
-            System.out.println(E);
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

@@ -61,43 +61,47 @@ public class NeuralNetwork {
     }
 
     public void serializeNetwork(OutputStream stream) {
-        if (stream != null) {
-            try {
-                ZipOutputStream zipout = new ZipOutputStream(stream);
-                zipout.setLevel(9);
-                zipout.putNextEntry(new ZipEntry("data"));
-                ObjectOutputStream out = new ObjectOutputStream(zipout);
+        if (stream == null) {
+            return;
+        }
 
-                input.serialize(out);
-                for(int i = 0; i < hidden.size(); i++) {
-                    hidden.get(i).serialize(out);
-                }
+        try {
+            ZipOutputStream zipout = new ZipOutputStream(stream);
+            zipout.setLevel(9);
+            zipout.putNextEntry(new ZipEntry("data"));
+            ObjectOutputStream out = new ObjectOutputStream(zipout);
 
-                out.flush();
-                zipout.closeEntry();
-                out.close();
-            } catch (Exception E) {
-                System.out.println(E);
+            input.serialize(out);
+            for(int i = 0; i < hidden.size(); i++) {
+                hidden.get(i).serialize(out);
             }
+
+            out.flush();
+            zipout.closeEntry();
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 
     public void deserializeNetwork(InputStream stream) {
-        if (stream != null) {
-            try {
-                ZipInputStream zipin = new ZipInputStream(stream);
-                zipin.getNextEntry();
-                ObjectInputStream in = new ObjectInputStream(zipin);
+        if (stream == null) {
+            return;
+        }
 
-                input.deserialize(in);
-                for(int i = 0; i < hidden.size(); i++) {
-                    hidden.get(i).deserialize(in);
-                }
+        try {
+            ZipInputStream zipin = new ZipInputStream(stream);
+            zipin.getNextEntry();
+            ObjectInputStream in = new ObjectInputStream(zipin);
 
-                in.close();
-            } catch (Exception E) {
-                System.out.println(E);
+            input.deserialize(in);
+            for(int i = 0; i < hidden.size(); i++) {
+                hidden.get(i).deserialize(in);
             }
+
+            in.close();
+        } catch (Exception e) {
+            System.out.println(e);
         }
     }
 

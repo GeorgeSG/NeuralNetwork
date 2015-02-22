@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import com.gardev.neuralnetwork.Connection;
 import com.gardev.neuralnetwork.Neuron;
 
@@ -79,6 +82,30 @@ public abstract class AbstractNeuralLayer {
 
         for (Neuron neuron : neurons) {
             neuron.setError(errors.get(neuron));
+        }
+    }
+
+    public void serialize(ObjectOutputStream out ) {
+        try {
+            for(int i = 0; i < neurons.size(); i++) {
+                for(int j = 0; j < neurons.get(i).getInputs().size(); j++) {
+                    out.writeDouble(neurons.get(i).getInputs().get(j).getWeight());
+                }
+            }
+        } catch (Exception E) {
+            System.out.println(E);
+        }
+    }
+
+    public void deserialize(ObjectInputStream in) {
+        try {
+            for(int i = 0; i < neurons.size(); i++) {
+                for(int j = 0; j < neurons.get(i).getInputs().size(); j++) {
+                    neurons.get(i).getInputs().get(j).setWeight(in.readDouble());
+                }
+            }
+        } catch (Exception E) {
+            System.out.println(E);
         }
     }
 

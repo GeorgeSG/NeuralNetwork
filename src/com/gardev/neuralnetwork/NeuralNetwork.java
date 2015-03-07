@@ -2,6 +2,14 @@ package com.gardev.neuralnetwork;
 
 import java.util.ArrayList;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.zip.ZipInputStream;
+import java.util.zip.ZipOutputStream;
+import java.util.zip.ZipEntry;
+
 import com.gardev.neuralnetwork.layers.InputLayer;
 import com.gardev.neuralnetwork.layers.HiddenLayer;
 import com.gardev.neuralnetwork.layers.OutputLayer;
@@ -45,6 +53,56 @@ public class NeuralNetwork {
     public int test(double... inputs) {
         activate(inputs);
         return output.getResult();
+    }
+
+    public double[] getOutputs(double... inputs) {
+        activate(inputs);
+        return output.getOutputs();
+    }
+
+    public void serializeNetwork(OutputStream stream) {
+        if (stream == null) {
+            return;
+        }
+
+        try {
+            ZipOutputStream zipout = new ZipOutputStream(stream);
+            zipout.setLevel(9);
+            zipout.putNextEntry(new ZipEntry("data"));
+            ObjectOutputStream out = new ObjectOutputStream(zipout);
+
+            input.serialize(out);
+            for(int i = 0; i < hidden.size(); i++) {
+                hidden.get(i).serialize(out);
+            }
+
+            out.flush();
+            zipout.closeEntry();
+            out.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deserializeNetwork(InputStream stream) {
+        if (stream == null) {
+            return;
+        }
+
+        try {
+            ZipInputStream zipin = new ZipInputStream(stream);
+            zipin.getNextEntry();
+            ObjectInputStream in = new ObjectInputStream(zipin);
+
+            input.deserialize(in);
+            for(int i = 0; i < hidden.size(); i++) {
+                hidden.get(i).deserialize(in);
+            }
+
+            in.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     private void activate(double... inputs) {

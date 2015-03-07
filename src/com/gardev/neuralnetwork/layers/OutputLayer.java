@@ -23,6 +23,16 @@ public class OutputLayer extends AbstractNeuralLayer {
         return max;
     }
 
+    public double[] getOutputs() {
+        double[] outputs = new double[neurons.size()];
+
+        for (int i = 0; i < neurons.size(); i++) {
+            outputs[i] = neurons.get(i).getOutput();
+        }
+
+        return outputs;
+    }
+
     public void calculateErrors(double[] expectedOutputs) {
         for (int i = 0; i < neurons.size(); i++) {
             Neuron outputNeuron = neurons.get(i);
